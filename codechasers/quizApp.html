@@ -7,8 +7,16 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
 <body>
-    <div class="container">
-      <h1 style="text-align: center; padding-top: 100px;"> QUIZ POP</h1>
+    <div  class="container">
+        <div id="box" class="box">
+            <div class="inner">
+              <span>Quiz Pop</span>
+            </div>
+            <div class="inner">
+              <span>Quiz Pop</span>
+            </div>
+          </div>
+      <!-- <h1 style="text-align: center; padding-top: 100px;"> QUIZ POP</h1> -->
     <div id="category-buttons" class="category-buttons">
     </div>
     <div id="quiz-container" class="quiz-container">
@@ -23,7 +31,23 @@
       </div>
     </div>
   </div>
-  <div id="score-container"></div>
+  <div style="text-align: center;"id="score-container"></div>
+
+  <!-- Pop-up container -->
+  <div class="popup-container" id="popupContainer">
+    <!-- Pop-up content -->
+    <div class="popup-content">
+        <!-- Close button -->
+        <span class="popup-close" onclick="window.location.reload()">&times;</span>
+        
+        <!-- Pop-up text -->
+        <p id="popup-text" class="popup-text"></p>
+        
+        <!-- Pop-up action button -->
+        <button class="popup-action" onclick="window.location.reload()">Close</button>
+       
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 

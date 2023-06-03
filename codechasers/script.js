@@ -1,4 +1,3 @@
-// JSON data
 const data = {
     "Music": [
       {
@@ -232,6 +231,7 @@ const data = {
   const prevButton = document.getElementById("prev-button");
   const nextButton = document.getElementById("next-button");
   const submitButton = document.getElementById("submit-button");
+  const boxHeaderDiv = document.getElementById("box");
   
   // Render category buttons
   for (const category in data) {
@@ -256,12 +256,13 @@ const data = {
   
   // Render current question
   function renderQuestion() {
+    boxHeaderDiv.style.display = "none";
     nextButton.disabled = true;
     const questions = data[currentCategory];
     const currentQuestion = questions[currentQuestionIndex];
   
     categoryTitle.innerText = currentCategory;
-    questionText.innerText = currentQuestion.question;
+    questionText.innerText = (currentQuestionIndex + 1) + '. ' + currentQuestion.question;
   
     optionsContainer.innerHTML = "";
     currentQuestion.options.forEach((option) => {
@@ -285,22 +286,6 @@ const data = {
       optionsContainer.appendChild(optionContainer);
     });
   }
-  
-//   function updateNavigationButtons() {
-//     const questions = data[currentCategory];
-//     const currentQuestion = questions[currentQuestionIndex];
-    
-//     prevButton.disabled = currentQuestionIndex === 0;
-//     nextButton.disabled = !selectedAnswers[currentQuestion.id];
-    
-//     if (currentQuestionIndex === questions.length - 1) {
-//       nextButton.style.display = "none";
-//       submitButton.style.display = "inline-block";
-//     } else {
-//       nextButton.style.display = "inline-block";
-//       submitButton.style.display = "none";
-//     }
-//   }
   
   function updateNavigationButtons() {
     const questions = data[currentCategory];
@@ -349,15 +334,31 @@ function handleSubmit() {
     }
     
     // Display the score
-    const scoreContainer = document.getElementById("score-container");
+    // const scoreContainer = document.getElementById("popup-text");
+    const scoreContainer = document.getElementById("popup-text");
     scoreContainer.textContent = `Your Score: ${score}/${questions.length}`;
     scoreContainer.style.display = "block";
     
     // Disable the next and previous buttons
     nextButton.disabled = true;
     prevButton.disabled = true;
+    submitButton.style.display = "none";
+    openPopup();
   }
   
+
+  function openPopup() {
+    var popupContainer = document.getElementById("popupContainer");
+    document.body.classList.add("popup-active");
+    popupContainer.style.display = "block";
+}
+
+// Close the pop-up
+function closePopup() {
+    var popupContainer = document.getElementById("popupContainer");
+    document.body.classList.remove("popup-active");
+    popupContainer.style.display = "none";
+}
   
   // Add event listeners to the buttons
   nextButton.addEventListener("click", handleNext);
