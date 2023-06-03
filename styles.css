@@ -1,0 +1,24 @@
+body{
+    text-align: center;
+    background-color: #A4D8D8;
+}
+button{
+    color: black;
+    width: 130px;
+    height: 50px;
+    background-color: #c2cfea;
+    border-radius: 10px;   
+}
+#start-btn:hover{
+    background: #ff96ad;
+    box-shadow:  0 0 5px #ff96ad,  0 0 25px #ff96ad, 0 0 50px #ff96ad, 0 0 200px #ff96ad;
+    cursor: pointer;
+}
+#selection-btn:hover{
+    background: #ff96ad;
+    box-shadow:  0 0 5px #ff96ad,  0 0 25px #ff96ad, 0 0 50px #ff96ad, 0 0 200px #ff96ad;
+    cursor: pointer;
+}
+
+
+
