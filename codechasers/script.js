@@ -239,6 +239,9 @@ const data = {
     categoryButton.classList.add("category-button");
     categoryButton.innerText = category;
     categoryButton.addEventListener("click", () => loadCategory(category));
+    if(localStorage.getItem(category) != null){
+      categoryButton.style.backgroundColor = 'grey';
+    }
     categoryButtonsContainer.appendChild(categoryButton);
   }
   
@@ -256,15 +259,17 @@ const data = {
   
   // Render current question
   function renderQuestion() {
+    
     boxHeaderDiv.style.display = "none";
     nextButton.disabled = true;
     const questions = data[currentCategory];
     const currentQuestion = questions[currentQuestionIndex];
-  
+    // console.log('questions :::::::: ', currentQuestion.id);
     categoryTitle.innerText = currentCategory;
     questionText.innerText = (currentQuestionIndex + 1) + '. ' + currentQuestion.question;
   
     optionsContainer.innerHTML = "";
+    
     currentQuestion.options.forEach((option) => {
       const optionContainer = document.createElement("div");
       optionContainer.classList.add("option-container");
@@ -273,33 +278,45 @@ const data = {
       radioInput.type = "radio";
       radioInput.name = "answer";
       radioInput.value = option;
+      
+      if(currentCategory != undefined && option != undefined 
+        && localStorage.getItem(currentCategory + '_' + currentQuestion.id) != null
+        && localStorage.getItem(currentCategory + '_' + currentQuestion.id) == option){
+          radioInput.checked = 'checked';
+      }
+      radioInput.id = option; 
       radioInput.addEventListener("change", () => {
         selectedAnswers[currentQuestion.id] = option;
         updateNavigationButtons();
       });
-  
       const optionLabel = document.createElement("label");
       optionLabel.innerText = option;
-  
       optionContainer.appendChild(radioInput);
       optionContainer.appendChild(optionLabel);
       optionsContainer.appendChild(optionContainer);
     });
+    updateNavigationButtons();
   }
-  
   function updateNavigationButtons() {
     const questions = data[currentCategory];
     const currentQuestion = questions[currentQuestionIndex];
-    
+    // console.log('currentCategory : ' , currentCategory+'_'+currentQuestion.id);
     prevButton.disabled = currentQuestionIndex === 0;
     nextButton.disabled = !selectedAnswers[currentQuestion.id];
-    
+    if(selectedAnswers[currentQuestion.id] != undefined 
+      && selectedAnswers[currentQuestion.id] != null) {
+      localStorage.setItem(currentCategory + '_' + currentQuestion.id, selectedAnswers[currentQuestion.id]);
+        
+    }
     if (currentQuestionIndex === questions.length - 1) {
       nextButton.style.visibility = "hidden";
       submitButton.style.display = "inline-block";
     } else {
       nextButton.style.visibility = "visible";
       submitButton.style.display = "none";
+    }
+    if(localStorage.getItem(currentCategory+'_'+currentQuestion.id) != null){
+      nextButton.disabled = false;
     }
   }
 // Function to handle the next button click
@@ -316,6 +333,7 @@ function handleNext() {
       currentQuestionIndex--;
       renderQuestion();
     }
+    
   }
   
   // Function to handle the submit button click
@@ -342,7 +360,10 @@ function handleSubmit() {
     // Disable the next and previous buttons
     nextButton.disabled = true;
     prevButton.disabled = true;
-    submitButton.style.display = "none";
+    // submitButton.style.display = "none";
+    console.log(currentCategory);
+    console.log(selectedAnswers);
+    localStorage.setItem(currentCategory, true);
     openPopup();
   }
   
@@ -364,4 +385,5 @@ function closePopup() {
   nextButton.addEventListener("click", handleNext);
   prevButton.addEventListener("click", handlePrevious);
   submitButton.addEventListener("click", handleSubmit);
+
   
