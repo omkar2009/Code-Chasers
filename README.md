@@ -67,15 +67,6 @@ The code consists several variables and constants to store information about cur
 
 Event listeners are used for button actions namely previousButton, nextButton, submitButton.
 
-
-
-
-
-
-
-
-
-
 Starting the quiz and load topic
 // Function to load the topic selection
     function loadTopicSelection() {
@@ -116,11 +107,6 @@ Start Game
 Function startQuiz is used to start quiz.
 
  
-
-
-
-
-
 
 Loading questions
 
