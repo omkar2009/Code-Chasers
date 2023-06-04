@@ -60,7 +60,6 @@ Game Page
       </div>
 
 
-
 Variables and DOM Elements
 
 The code consists several variables and constants to store information about current question and the number of questions. The following DOM elements are also accessed and stored in constants:
